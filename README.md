@@ -1,0 +1,6 @@
+# Api
+```php
+<?php
+  phpinfo();
+
+```
