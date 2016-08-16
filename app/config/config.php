@@ -17,6 +17,7 @@ return new \Phalcon\Config(array(
 		"logDir" =>  "../app/runtime/"
 	),
 	"appkey"=>"201608131611",
+	"secretKey"=>"jsdjfsd23sd44sd6frewsd6f44we61s6",
 	"session"=>"dd1am0uu5q60kkqgbzj5gi0jzzgq0sxhszkzthvws875hary5wmvgpmz9mag",
 	"gatewayUrl"=>"http://api.odamiao.com/rest",
 	"sdkVersion"=>"clk-test-0528",

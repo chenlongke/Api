@@ -2,9 +2,9 @@
 class Api{
 	private $appkey;
 	private $secretKey;
-	private $v;
-	private $sdkVersion;
-	private $gatewayUrl;
+	private $v = "A";
+	private $sdkVersion = "1471311044149";
+	private $gatewayUrl = "http://api.odamiao.com/router";
 
 	
 
@@ -12,7 +12,7 @@ class Api{
 		$this->appkey=$appkey;
 		$this->secretKey=$secretKey;
 	}
-	public function request_api($method,$apiParams){
+	public function request_api($method,$apiParams=array()){
 		$sysParams["app_key"] = $this->appkey;
 		$sysParams["v"] = $this->v;
 		$sysParams["sign_method"] = "md5";
@@ -26,10 +26,10 @@ class Api{
 			$requestUrl .= "$sysParamKey=" . urlencode($sysParamValue) . "&";
 		}
 		$requestUrl = substr($requestUrl, 0, -1);
-		$result = $this->curl($this->gatewayUrl,$apiParams);
+		$result = $this->curl($requestUrl,$apiParams);
 	}
 	private function curl($url,$postFields){
-		
+		echo "$url ------- ".json_encode($postFields);
 	}
 	private function generateSign($params){
 		ksort($params);

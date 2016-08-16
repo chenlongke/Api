@@ -37,9 +37,8 @@
 		public function log_info($param) {
 			$this->logger->info($param);
 		}
-		public function test(){
-			$api = new Api();
-			/*echo $this->config->appkey;*/
-			$api->clk();
+		public function test($method,$apiParams){
+			$api = new Api($this->config->appkey,$this->config->secretKey);
+			return $api->request_api($method,$apiParams);
 		}
 	}
