@@ -18,7 +18,32 @@ class IndexController extends BaseController{
 			}
 			echo "<br>";
 		}*/
-		
+
+		phpinfo();
+		exit;
+
+		$total = 2618518;
+		$size = 5000;
+		$page = ceil($total/$size);
+		for($i=1;$i<=$page;$i++){
+			$s = ($i-1)*$size;
+			$ask = $i*$size;
+			$exec_sql =  "UPDATE order_center_test.oc_order_sub order_sub
+					INNER JOIN vacn_db.16860_user_supplier user_supplier ON (
+						order_sub.supplier_id = user_supplier.uid
+					)
+					SET order_sub.supplier_name = user_supplier.company,
+					 	order_sub.send_province = user_supplier.province,
+					 	order_sub.send_city = user_supplier.city
+					WHERE
+						order_sub.id BETWEEN $s
+					AND $ask;";
+		}
+
+
+
+
+		exit;
 		$method = "xh9.trade.getOrder";
 		/*$session = "sdf464646546sf6ds4f6d4f";*/
 		$apiParams = array(
