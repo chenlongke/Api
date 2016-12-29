@@ -1,18 +1,15 @@
 <?php
+
 $loader = new \Phalcon\Loader();
+
+/**
+ * We're a registering a set of directories taken from the configuration file
+ */
 $loader->registerDirs(
-	array(
-		$config->application->controllersDir,
-		$config->application->componentsDir,
-		 $config->application->modelsDir, 
-		$config->application->viewsDir,
-		/* $config->application->pluginsDir, */
-		$config->application->libraryDir,
-		$config->application->cacheDir,
-		$config->application->logDir
-	)
-);
-$loader->registerNamespaces(array(
-	"library"=>$config->application->libraryDir
-));
-$loader->register();
+    [
+        $config->application->controllersDir,
+        $config->application->modelsDir,
+        $config->application->componentDir,
+        $config->application->libraryDir
+    ]
+)->register();

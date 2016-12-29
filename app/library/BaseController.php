@@ -1,44 +1,35 @@
 <?php
-	abstract class BaseController extends Phalcon\Mvc\Controller{
-		protected $log;
-		protected $_isJsonpResponse = false;
-    	protected $_isJsonResponse = false;
-    	
-		public function initialize(){
-			$this->log=$this->logger;
-		}
 
+use Phalcon\Mvc\Controller;
 
-		public function setJsonResponse() {
-	        $this->view->disable();
-	        $this->_isJsonpResponse = true;
-	        $this->response->setContentType('application/json', 'UTF-8');
-	    }
-
-	    //设置JSONP返回格式
-	    public function setJsonpResponse() {
-	        $this->view->disable();
-	        $this->_isJsonpResponse = true;
-	    }
-
-	    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher) {
-	        $data = $dispatcher->getReturnedValue();
-
-	        if ($this->_isJsonpResponse) {
-	            $jsonp = $_REQUEST["callback"];
-	            $this->response->setContent($jsonp . "(" . json_encode($data) . ")");
-	            return $this->response->send();
-	        }else if ($this->_isJsonResponse) {
-	            $this->response->setJsonContent($data);
-	            return $this->response->send();
-	        }
-	    }
-
-		public function log_info($param) {
-			$this->logger->info($param);
-		}
-		public function test($method,$apiParams){
-			$api = new Api($this->config->appkey,$this->config->secretKey);
-			return $api->request_api($method,$apiParams);
-		}
+class BaseController extends Controller{
+	protected $log;
+	public function initialize(){
+		$this->log = $this->di->get('logger');
 	}
+
+	public function log_info($param) {
+		$this->log->info($param);
+	}
+
+	public function getip(){
+		if (getenv("HTTP_CLIENT_IP")){
+			$ip = getenv("HTTP_CLIENT_IP");
+		}else if(getenv("HTTP_X_FORWARDED_FOR")){
+			$ip = getenv("HTTP_X_FORWARDED_FOR");
+		}else if(getenv("REMOTE_ADDR")){
+			$ip = getenv("REMOTE_ADDR");
+		}else {
+			$ip = "Unknow";
+		}
+		return $ip;
+	}
+
+	public function getLocationAction(){		
+		$ip = $this->getip();
+		if($ip=="127.0.0.1"){
+			$ip="27.115.94.242";
+		}		
+		return NetworkUtils::http("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip={$ip}",null);
+	}
+}
