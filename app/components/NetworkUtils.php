@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: seaman
- * Date: 11/6/13
- * Time: 3:57 PM
- */
 
 class NetworkUtils {
 
