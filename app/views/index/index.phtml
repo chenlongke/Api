@@ -1,4 +1,3 @@
-<script type="text/javascript" src="/js/layer/layer.js"></script>
 <style type="text/css">
     .main{
         position:absolute;
@@ -19,7 +18,7 @@
     }
     .pic{
         /*background-image: url(/resource/img/1473155307009.jpg);*/
-        background-image: url(http://cdn.odamiao.com/images/1473155307009.jpg);         
+        /*background-image: url(http://cdn.odamiao.com/images/1473155307009.jpg);*/
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -28,9 +27,7 @@
         z-index:-9999;
         position:absolute;              
     }
-</style> 
-
-
+</style>
 <div class="pic"></div>
 <div class="main">
     <form class="sui-form form-horizontal" method="post" action="/index/manager" autocomplete="off" style="margin-top: 54px;" >
@@ -60,14 +57,19 @@
     当前时间是<span id="dateTime">{{date('Y-m-d H:i:s')}}</span>         
 </div>
 <script type="text/javascript">
+    var src = ["/js/jsencrypt.min.js","/js/module/login.js"];
+    for (var i in src) {
+        var sc = document.createElement('script');
+        sc.src = src[i];
+        document.head.appendChild(sc);
+    }
     window.onload=function(){
         $("#form").css("margin-top",function(){
             return $(this).height()/2;
         });
-       /* setInterval(function(){
+        setInterval(function(){
             document.getElementById("dateTime").innerText=(new Date()).format();
-        },1000);*/
-        //document.getElementById("city").innerText = remote_ip_info.province;
+        },1000);       
     }
 </script>
 

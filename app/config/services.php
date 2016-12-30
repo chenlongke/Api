@@ -7,7 +7,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
-use Phalcon\Mvc\Router;
+
 
 /**
  * Shared configuration service
@@ -127,14 +127,6 @@ $di->set('logger', function() use ($config)  {
 });
 
 $di->set('router',function() use($config){
-    $router = new Router();
-    $router->notFound(
-        [
-            "controller" => "index",
-            "action"     => "NotFound",
-        ]
-    );
-
-    $router->handle();
+    require APP_PATH.'/config/routers.php';
     return $router;
 });

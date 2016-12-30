@@ -9,7 +9,7 @@ class IndexController extends BaseController {
     	$this->view->render('index','index');
     }
 
-    public function NotFound(){
+    public function NotFoundAction(){
     	echo "not found";die();
     }
 }
