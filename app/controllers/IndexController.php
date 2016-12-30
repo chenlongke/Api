@@ -12,9 +12,9 @@ class IndexController extends BaseController {
 
     	//$this->log_info($rsa->encryptToRSA("陈龙科",$this->config->RSA_PUBLIC_KEY));
 
-    	$this->view->setVar('region',json_decode($this->getLocationAction(),true));
-    	$this->view->setVar("title","登录");    	
-    	$this->view->setVar("index",$this->getip());
+    	$this->view->region = json_decode($this->getLocationAction(),true);
+    	$this->view->title = "登录";    	
+    	$this->view->index = $this->getip();
     	$this->view->render('index','index');
     }
 

@@ -50,7 +50,8 @@ $di->setShared('view', function () use($config) {
 
             $phtml->setOptions([
                 'compiledPath' => $config->application->cacheDir,
-                'compiledSeparator' => '_'
+                'compiledSeparator' => '_',
+                'compileAlways'=>true
             ]);
 
             return $phtml;
