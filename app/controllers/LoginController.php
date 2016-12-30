@@ -9,9 +9,10 @@ class LoginController extends BaseController
 	}
 
 	function checkAccountAction($account='',$password=''){
-		exit(json_encode([
+		$this->setJsonpResponse();
+		return [
 			'code'=>-1,
 			'message'=>'test'
-		]));
+		];
 	}
 }

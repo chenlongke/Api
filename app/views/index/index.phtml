@@ -57,7 +57,7 @@
     当前时间是<span id="dateTime">{{date('Y-m-d H:i:s')}}</span>         
 </div>
 <script type="text/javascript">
-    var src = ["/js/jsencrypt.min.js","/js/module/login.js"];
+    var src = ["/js/jsencrypt.min.js","/js/module/login.js?v={{date('Hisss')}}"];
     for (var i in src) {
         var sc = document.createElement('script');
         sc.src = src[i];

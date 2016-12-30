@@ -8,6 +8,12 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
 
+use \Exception;
+use Phalcon\Dispatcher;
+use Phalcon\Mvc\Dispatcher as MvcDispatcher;
+use Phalcon\Events\Event;
+use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Mvc\Dispatcher\Exception as DispatchException;
 
 /**
  * Shared configuration service
@@ -117,6 +123,7 @@ $di->setShared('session', function () {
 
     return $session;
 });
+
 /*设置日志服务*/
 $di->set('logger', function() use ($config)  {
     $logger = new Phalcon\Logger\Adapter\File($config->application->logDir . date('Ymd').'-log.log');
@@ -126,7 +133,52 @@ $di->set('logger', function() use ($config)  {
     return $logger;
 });
 
+/*设置路由*/
 $di->set('router',function() use($config){
     require APP_PATH.'/config/routers.php';
     return $router;
 });
+
+$di->setShared("dispatcher",function () {
+        // 创建一个事件管理
+        $eventsManager = new EventsManager();
+
+        // 附上一个侦听者
+        $eventsManager->attach(
+            "dispatch:beforeException",
+            function (Event $event, $dispatcher, Exception $exception) {
+                // 处理404异常
+                if ($exception instanceof DispatchException) {
+                    $dispatcher->forward(
+                        [
+                            "controller" => "Index",
+                            "action"     => "NotFound",
+                        ]
+                    );
+
+                    return false;
+                }
+
+                // 代替控制器或者动作不存在时的路径
+                switch ($exception->getCode()) {
+                    case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                    case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                        $dispatcher->forward(
+                            [
+                                "controller" => "Index",
+                                "action"     => "Index",
+                            ]
+                        );
+                        return false;
+                }
+            }
+        );
+
+        $dispatcher = new MvcDispatcher();
+
+        // 将EventsManager绑定到调度器
+        $dispatcher->setEventsManager($eventsManager);
+
+        return $dispatcher;
+    }
+);

@@ -131,8 +131,7 @@
 				},
 		       	cache:false, 
 		       	async:false
-			}).done(function(rsp){
-				rsp = JSON.parse(rsp);
+			}).done(function(rsp){				
 				if(rsp.code==1) {
 					$("input[name=J_pwd]").val('');
 					is_true = true;
