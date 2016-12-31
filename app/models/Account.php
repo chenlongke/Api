@@ -5,9 +5,16 @@ use Phalcon\Mvc\Model;
 */
 class Account extends Model
 {
-	
-	function __construct(argument)
+	/*protected $id;
+	protected $nick;
+	protected $password;
+
+	public function setNick($nick)
 	{
-		# code...
+		$this->nick = $nick;
 	}
+	public function getNick()
+	{
+		return $this->nick;
+	}*/
 }
