@@ -9,11 +9,11 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
-        'host'        => 'tomcat.odamiao.com',
-        'username'    => 'home',
-        'password'    => 'ZR5bIU9gSbvgyUe3',
-        'dbname'      => 'user_info',
-        'charset'     => 'utf8',
+        'host'        => '/',
+        'username'    => '/',
+        'password'    => '/',
+        'dbname'      => '/',
+        'charset'     => 'utf8'
     ],
     'application' => [
         'appDir'         => APP_PATH . '/',
