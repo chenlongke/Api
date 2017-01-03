@@ -9,6 +9,9 @@ class LoginController extends BaseController
 		$this->view->render('login','index');
 	}
 
+	/*check pass nick isexist
+	Check the account password is correct
+	*/
 	function checkAccountAction(){
 		$this->setJsonpResponse();
 		$account = isset($_POST['account']) ? $_POST['account']  : '';
@@ -19,19 +22,21 @@ class LoginController extends BaseController
 				'message'=>'用户名不存在'
 			];
 		}
-		$data = Account::findFirst(
-				    [
-				        "nick = ?1",
-				        "bind" => [1 => $account],
-				        "hydration" => Resultset::HYDRATE_OBJECTS
-				    ]
-				);
+		$data = Account::findFirst([
+		        "nick = ?1",
+		        "bind" => [1 => $account],
+		        "hydration" => Resultset::HYDRATE_OBJECTS
+			]
+		);
+
 		if($data){
 			$this->log_info($data->id);
 			$this->log_info($data->password);
 			$rsa = new RSA();
-			$password = $rsa->decryptFromRSA($password, $this->config->RSA_PRIVATE_KEY);//RSA解密
-			if($data->password === md5($password)){
+			$password = $rsa->decryptRSA($password, $this->config->RSA_PRIVATE_KEY);
+			$DBpassword = $rsa->decryptRSA($data->password, $this->config->RSA_PRIVATE_KEY);
+			$this->log_info($password);
+			if($DBpassword === $password){
 				return [
 					'code'=>-1,
 					'message'=>'项目测试中。本项目<a target="_blank" href="https://github.com/clk528/demo">github仓库</a>',

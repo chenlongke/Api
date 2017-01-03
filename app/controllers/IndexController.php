@@ -10,7 +10,7 @@ class IndexController extends BaseController {
 
     	//$rsa = new RSA();
 
-    	//$this->log_info($rsa->encryptToRSA("陈龙科",$this->config->RSA_PUBLIC_KEY));
+    	$this->log_info($rsa->encryptRSA("陈龙科",$this->config->RSA_PUBLIC_KEY));
 
     	$this->view->region = json_decode($this->getLocationAction(),true);
     	$this->view->title = "登录";    	

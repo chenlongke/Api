@@ -5,7 +5,7 @@ class RSA {
 	 *  参数：$data=需要加密的数据，$public_key=RSA公钥（可以读配置文件。中间必须没有空格换行且没有注释）
 	 *  返回：base64加密后的RSAData 失败返回false
 	 */
-	function encryptToRSA($data, $public_key) { //public_key在调用时C('RSA_PUBLIC_KEY')传入
+	function encryptRSA($data, $public_key) { //public_key在调用时C('RSA_PUBLIC_KEY')传入
 	    if (empty($data)) {
 	        return false;
 	    }
@@ -26,7 +26,7 @@ class RSA {
 	 *  参数 $RSAData=需要RSA解密的数据，$private_key=RSA私钥（可读配置文件。中间必须没有空格换行且没有注释）
 	 *  返回 解密后的data 失败返回false
 	 */
-	function decryptFromRSA($RSAData,$private_key) { //private_key在调用时C('RSA_PRIVATE_KEY')传入
+	function decryptRSA($RSAData,$private_key) { //private_key在调用时C('RSA_PRIVATE_KEY')传入
 	    if (empty($RSAData)) {
 	        return false;
 	    }	
