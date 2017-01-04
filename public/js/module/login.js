@@ -1,35 +1,35 @@
 ;(function($){
 	$("a[name=register]").click(function(){
 		var msg_html = '' + 
-		'<div class="sui-form form-horizontal" id="clkDialog">'+
-			'<div class="control-group">'+
-				'<label for="inputUser" class="control-label">用户名：</label>'+
-				'<div class="controls">'+
-					'<input type="text" id="inputUser" placeholder="用户名" data-util="1">'+
+		'<div class="form-horizontal" id="clkDialog">'+
+			'<div class="form-group">'+
+				'<label for="inputUser" class="col-sm-4 control-label">用户名：</label>'+
+				'<div class="col-sm-8">'+
+					'<input type="text" id="inputUser" class="form-control" placeholder="用户名" data-util="1">'+
 				'</div>'+
 			'</div>'+
-			'<div class="control-group">'+
-				'<label for="inputEmail" class="control-label">邮箱：</label>'+
-				'<div class="controls">'+
-					'<input type="text" id="inputEmail" placeholder="邮箱">'+
+			'<div class="form-group">'+
+				'<label for="inputEmail" class="col-sm-4 control-label">邮箱：</label>'+
+				'<div class="col-sm-8">'+
+					'<input type="text" id="inputEmail" class="form-control" placeholder="邮箱">'+
 				'</div>'+
 			'</div>'+
-			'<div class="control-group">'+
-				'<label for="inputPassworda" class="control-label">密码：</label>'+
-				'<div class="controls">'+
-					'<input type="password" id="inputPassworda" placeholder="密码" data-util="1">'+
+			'<div class="form-group">'+
+				'<label for="inputPassworda" class="col-sm-4 control-label">密码：</label>'+
+				'<div class="col-sm-8">'+
+					'<input type="password" id="inputPassworda" class="form-control" placeholder="密码" data-util="1">'+
 				'</div>'+
 			'</div>'+
-			'<div class="control-group">'+
-				'<label for="inputRepassword" class="control-label">重复密码：</label>'+
-				'<div class="controls">'+
-					'<input type="password" id="inputRepassword" placeholder="重复密码" data-util="1">'+
+			'<div class="form-group">'+
+				'<label for="inputRepassword" class="col-sm-4 control-label">重复密码：</label>'+
+				'<div class="col-sm-8">'+
+					'<input type="password" id="inputRepassword" class="form-control" placeholder="重复密码" data-util="1">'+
 				'</div>'+
 			'</div>'+
-			'<div class="control-group">'+
-				'<label class="control-label"></label>'+
-				'<div class="controls">'+
-					'<button id="register" class="sui-btn btn-primary">立即注册</button>'+
+			'<div class="form-group">'+
+				'<label class="col-sm-3 control-label"></label>'+
+				'<div class="col-sm-8">'+
+					'<button id="register" class="btn btn-primary">立即注册</button>'+
 				'</div>'+
 			'</div>'+
 		'</div>';
@@ -38,7 +38,7 @@
 			skin: 'layui-layer-molv',
 			title:'注册',
 			shade: [0.8, '#000'], 
-			area:['350px','300px'],
+			area:['360px','330px'],
 			move: false,
 			btn:false,
 			success:function(){				
@@ -108,7 +108,7 @@
 			layer.msg("注册失败");
 		});
 	});
-	$("form.sui-form").submit(function(){
+	$("form.form-horizontal").submit(function(){
 		var is_true = false;
 		var username = $.trim($("input[name=J_user]").val()),
 			pwd = $.trim($("input[name=J_pwd]").val()),
