@@ -1,0 +1,92 @@
+{% extends "templates/base2.phtml" %}
+{% block body %}
+	<div class="container">
+  		<table class="table">
+  			<thead>
+  				<tr>
+  					<th>订单号</th>
+  					<th>金额</th>
+  					<th>状态</th>
+  					<th>生成时间</th>
+  					<th>操作</th>
+  				</tr>
+  			</thead>
+  			<tbody>
+  				{% for val in list%}
+  					<tr>
+  						<td>{{val['orderNo']}}</td>
+  						<td>{{val['amount']}}</td>
+  						<td>待支付</td>
+  						<td>{{date('Y-m-d H:i:s',val['create_time'])}}</td>
+  						<td><button class="btn btn-primary" data-orderno="{{val['orderNo']}}">支付</button></td>
+  					</tr>
+  				{% endfor %}
+  			</tbody>
+  		</table>
+	</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">	
+	!(function($) {
+		$("button[data-orderno]").click(function(){
+			var form = '' +
+				'<form target="_blank" action="test/pay" method="post" class="form-horizontal" name="payform">' + 
+					'<input name="orderNo" value="'+($(this).data('orderno'))+'" type="hidden">' + 
+					'订单号<b>'+($(this).data('orderno'))+'</b>确定支付?' + 
+				'</form>';
+			orderNo = $(this).data('orderno');
+			layer.confirm(form, {
+					btn: ['支付','取消'],
+					title : '确定支付?'
+				}, function(){
+					payform.submit();					
+					return clk(orderNo);
+				});
+			});
+		function clk(orderNo){
+			layer.close(layer.index);
+			layer.alert("确定支付", {
+				btn: ['支付完成'],
+				title : '是否支付完成?'
+			}, function(){				
+				layer.close(layer.index);
+			});
+
+			var countdown = {
+				index : 0,
+				sum:60,
+				timeKey:undefined,
+				orderNo:orderNo,
+				get:function(){
+					countdown.timeKey = setInterval(function(){
+						if(countdown.index == countdown.sum){
+							console.log("时间到了，停止查询");
+							layer.close(layer.index);
+							clearInterval(countdown.timeKey);
+						} else {
+							$.ajax({
+								url:'test/getPay',
+								type:'post',
+								dataType:'json',
+								data:{orderNo:countdown.orderNo},
+								success:function(msg){
+									if(msg.code==1){
+										layer.close(layer.index);
+										clearInterval(countdown.timeKey);
+										console.log("支付完成");
+									}else{
+										console.log("没有支付继续等待");
+										countdown.index += 1;
+									}
+								}
+							});							
+						}
+					},3000);
+				}
+			};
+			countdown.get();
+
+		}
+	})(jQuery);
+</script>
+{% endblock %}
