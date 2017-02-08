@@ -1,3 +1,4 @@
 *.txt
 *.log
 .project
+app/config/config.php
