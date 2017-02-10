@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: seaman
- * Date: 10/25/13
- * Time: 4:40 PM
- */
 
 class StringCommon
 {
@@ -30,7 +24,9 @@ class StringCommon
      * @param $password
      * @return string
      */
-    public static function string_mask($password){
+
+    public static function string_mask($password)
+    {
         if(empty($password)){
             return "";
         }
@@ -66,13 +62,13 @@ class StringCommon
 
         for ($i = 0; $i <= $strLen; $i++) {
 
-// Grab the next character in the string.
+            // Grab the next character in the string.
             $char = substr($json, $i, 1);
-// Are we inside a quoted string?
+            // Are we inside a quoted string?
             if ($char == '"' && $prevChar != '\\') {
                 $outOfQuotes = !$outOfQuotes;
-// If this character is the end of an element,
-// output a new line and indent the next line.
+                // If this character is the end of an element,
+                // output a new line and indent the next line.
             } else if (($char == '}' || $char == ']') && $outOfQuotes) {
                 $result .= $newLine;
                 $pos--;
@@ -80,10 +76,10 @@ class StringCommon
                     $result .= $indentStr;
                 }
             }
-// Add the character to the result string.
+            // Add the character to the result string.
             $result .= $char;
-// If the last character was the beginning of an element,
-// output a new line and indent the next line.
+            // If the last character was the beginning of an element,
+            // output a new line and indent the next line.
             if (($char == ',' || $char == '{' || $char == '[') && $outOfQuotes) {
                 $result .= $newLine;
                 if ($char == '{' || $char == '[') {
@@ -95,8 +91,6 @@ class StringCommon
             }
             $prevChar = $char;
         }
-
         return $result;
-
     }
 }

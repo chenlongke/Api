@@ -1,24 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: seaman
- * Date: 10/29/13
- * Time: 6:18 PM
- */
-
 class SystemCommon {
-
     /**
      * 执行系统命令
      * @param $cmd 命令行
      * @return mixed ["stdout"] 标准输出 ["stderr"] 错误输出
      */
     public static function runningCmd($cmd){
-        $descriptorspec = array(
-            0 => array("pipe", "r"),  // stdin
-            1 => array("pipe", "w"),  // stdout
-            2 => array("pipe", "w"),  // stderr
-        );
+        $descriptorspec = [
+            0 => ["pipe", "r"],     // stdin
+            1 => ["pipe", "w"],     // stdout
+            2 => ["pipe", "w"]      // stderr
+        ];
 
         $process = proc_open($cmd, $descriptorspec, $pipes, dirname(__FILE__), null);
 
@@ -27,11 +19,6 @@ class SystemCommon {
 
         $stderr = stream_get_contents($pipes[2]);
         fclose($pipes[2]);
-
-//        Yii::log("CDM:" . $cmd);
-//        Yii::log("ERR:" . $stderr);
-//        Yii::log("OUT:" . $stdout);
-
         $return["stdout"] = $stdout;
         $return["stderr"] = $stderr;
         proc_close($process);
@@ -39,7 +26,8 @@ class SystemCommon {
         return $return;
     }
 
-    public static function transformXSLFile($xml, $xslFile, $xmlStoreFile){
+    public static function transformXSLFile($xml, $xslFile, $xmlStoreFile)
+    {
         $xsl = new DOMDocument;
         $xsl->substituteEntities = true;    // <===added line
         $xsl->load($xslFile);
