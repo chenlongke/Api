@@ -28,7 +28,7 @@ ini_set( 'log_errors', 'on' );
 /**
  * The error log is output to the php_error.log file
  */
-ini_set( 'error_log', '../Runtime/php_error.log');//PHP错误日志输出到文件中
+ini_set( 'error_log', '../Runtime/php_error.log');
 
 use Phalcon\Di\FactoryDefault;
 
