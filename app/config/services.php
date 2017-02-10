@@ -8,12 +8,14 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
 
-use \Exception as Exception;
 use Phalcon\Dispatcher;
 use Phalcon\Mvc\Dispatcher as MvcDispatcher;
 use Phalcon\Events\Event;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Dispatcher\Exception as DispatchException;
+
+use \Exception as Exception;
+use \Redis as Redis;
 
 /**
  * Shared configuration service
@@ -57,18 +59,6 @@ $di->setShared('view', function () use($config) {
             return $phtml;
         },
         '.volt' => PhpEngine::class
-        /*".phtml" => function ($view) {          
-
-            $phtml = new PhpEngine($view, $this);
-
-            $phtml->setOptions([
-                'compiledPath' => $config->application->cacheDir,
-                'compiledSeparator' => '_'
-            ]);
-
-            return $phtml;
-        }*/
-
     ]);
 
     return $view;
@@ -183,3 +173,9 @@ $di->setShared("dispatcher",function () {
         return $dispatcher;
     }
 );
+
+$di->set('redis' , function() use($config){
+    $redis = new Redis();
+    $redis->connect($config->redis->host,$config->redis->port);
+    return $redis;
+});
