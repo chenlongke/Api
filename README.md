@@ -11,52 +11,62 @@ Phalcon 是开源、全功能栈、使用 C 扩展编写、针对高性能优化
 Phalcon 不只是为了卓越的性能, 我们的目标是让它更加健壮，拥有更加丰富的功能以及更加简单易于使用！
 ``` php
 <?php
-	ini_set('session.cookie_path', '/');
-	ini_set('session.cookie_domain', ".{$_SERVER['SERVER_NAME']}");
-	ini_set('session.gc_maxlifetime', '86400');
 
-	ini_set( 'display_errors', 'on' );//页面上显示错误
-	ini_set( 'log_errors', 'on' );//错误输出到日志
-	ini_set( 'error_log', '../Runtime/php_error.log');//PHP错误日志输出到文件中
+ini_set('session.cookie_path', '/');
+ini_set('session.cookie_domain', ".{$_SERVER['SERVER_NAME']}");
+ini_set('session.gc_maxlifetime', '86400');
 
-	use Phalcon\Di\FactoryDefault;
+/**
+ * An error is displayed on the page
+ */
+ini_set( 'display_errors', 'on' );
+/**
+ * The error is output to the log
+ */
+ini_set( 'log_errors', 'on' );
 
-	error_reporting(E_ALL);
+/**
+ * The error log is output to the php_error.log file
+ */
+ini_set( 'error_log', '../Runtime/php_error.log');//PHP错误日志输出到文件中
 
-	define('BASE_PATH', dirname(__DIR__));
-	define('APP_PATH', BASE_PATH . '/app');
+use Phalcon\Di\FactoryDefault;
 
-	try {
+error_reporting(E_ALL);
 
-	    /**
-	     * The FactoryDefault Dependency Injector automatically registers
-	     * the services that provide a full stack framework.
-	     */
-	    $di = new FactoryDefault();    
-	    /**
-	     * Get config service for use in inline setup below
-	     */
-	    $config = include "../app/config/config.php";
-	    /**
-	     * Read services
-	     */
-	    include APP_PATH . "/config/services.php";
-	    /**
-	     * Include Autoloader
-	     */
-	    include APP_PATH . '/config/loader.php';
+define('BASE_PATH', dirname(__DIR__));
+define('APP_PATH', BASE_PATH . '/app');
 
-	    /**
-	     * Handle the request
-	     */
-	    $application = new \Phalcon\Mvc\Application($di);
+try {
 
-	    echo $application->handle()->getContent();
+    /**
+     * The FactoryDefault Dependency Injector automatically registers
+     * the services that provide a full stack framework.
+     */
+    $di = new FactoryDefault();    
+    /**
+     * Get config service for use in inline setup below
+     */
+    $config = include "../app/config/config.php";
+    /**
+     * Read services
+     */
+    include APP_PATH . "/config/services.php";
+    /**
+     * Include Autoloader
+     */
+    include APP_PATH . '/config/loader.php';
 
-	} catch (\Exception $e) {
-	    echo $e->getMessage() . '<br>';
-	    echo '<pre>' . $e->getTraceAsString() . '</pre>';
-	}
+    /**
+     * Handle the request
+     */
+    $application = new \Phalcon\Mvc\Application($di);
 
+    echo $application->handle()->getContent();
+
+} catch (\Exception $e) {
+    echo $e->getMessage() . '<br>';
+    echo '<pre>' . $e->getTraceAsString() . '</pre>';
+}
 ```
 2017年2月10日 09:33:17

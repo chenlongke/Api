@@ -4,8 +4,18 @@ ini_set('session.cookie_path', '/');
 ini_set('session.cookie_domain', ".{$_SERVER['SERVER_NAME']}");
 ini_set('session.gc_maxlifetime', '86400');
 
-ini_set( 'display_errors', 'on' );//页面上显示错误
-ini_set( 'log_errors', 'on' );//错误输出到日志
+/**
+ * An error is displayed on the page
+ */
+ini_set( 'display_errors', 'on' );
+/**
+ * The error is output to the log
+ */
+ini_set( 'log_errors', 'on' );
+
+/**
+ * The error log is output to the php_error.log file
+ */
 ini_set( 'error_log', '../Runtime/php_error.log');//PHP错误日志输出到文件中
 
 use Phalcon\Di\FactoryDefault;
