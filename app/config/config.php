@@ -10,8 +10,8 @@ return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
         'host'        => 'odamiao.com',
-        'username'    => 'root',
-        'password'    => '123456',
+        'username'    => '',
+        'password'    => '',
         'dbname'      => 'user_info',
         'charset'     => 'utf8'
     ],
