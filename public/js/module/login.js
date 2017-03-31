@@ -1,4 +1,5 @@
 ;(function($){
+
 	$("a[name=register]").click(function(){
 		var msg_html = '' + 
 		'<div class="form-horizontal" id="clkDialog">'+
@@ -46,6 +47,7 @@
 			}
 		});
 	});
+
 	$(document).on('keyup','input[data-util]',function(){
 		var words = ['~','!','@','#','$','%','^','&','*','(',')','_','-','+'];
 		for (var i in words) {
@@ -121,6 +123,7 @@
 				layer.alert("\u5bc6\u7801\u4e3a\u7a7a",{icon:2});
 				return false;
 			}
+			layer.load();
 			var cryptPwd=Encrypt.RSAUnit.encryptToRSA(prikey,pwd);
 			$.ajax({ 
 		        type: "post", 
@@ -131,7 +134,8 @@
 				},
 		       	cache:false, 
 		       	async:false
-			}).done(function(rsp){				
+			}).done(function(rsp){
+				layer.closeAll();
 				if(rsp.code==1) {
 					$("input[name=J_pwd]").val('');
 					is_true = true;
@@ -140,6 +144,7 @@
 					layer.alert(rsp.message,{icon:2});
 				}
 			}).fail(function(){
+				layer.closeAll();
 				is_true = false;
 			});
 		return is_true;		

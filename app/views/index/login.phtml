@@ -33,7 +33,7 @@
 {% block body %}
 <!-- <div class="pic"></div> -->
 <div class="main">
-    <form class="form-horizontal" method="post" action="/index/manager" autocomplete="off" style="margin-top: 54px;" role="form">
+    <form class="form-horizontal" method="post" action="/chat" autocomplete="off" style="margin-top: 54px;" role="form">
         <div class="form-group">
             <label for="inputID" class="col-sm-3 control-label">帐号：</label>
             <div class="col-sm-8">
@@ -63,7 +63,7 @@
 {% block script %}
 <script type="text/javascript" src="//cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
 <script type="text/javascript">
-    var src = ["/js/jsencrypt.min.js","/js/module/login.js"];
+    var src = ["/js/jsencrypt.min.js","/js/module/login.js?v={{date("YmdHis")}}"];
     for (var i in src) {
         var sc = document.createElement('script');
         sc.src = src[i];
