@@ -73,12 +73,11 @@
 		$result = curl_exec($ch);
 		curl_close($ch);
 		# 转换为标准数组
-		//$errorCode = curl_errno($ch);
 		if(!$result){
 			$this->error = '数据推送失败!请联系网站技术人员解决!';
 			return 0;
 		}
-		$result = object_array(json_decode($result));
+		$result = json_decode($result,true);
 		
 		# 判断并返回结果
 		return $this->judge($result);
