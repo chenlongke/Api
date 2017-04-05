@@ -1,3 +1,18 @@
+if(navigator.userAgent.toLowerCase().indexOf('chrome/') == -1){
+	alert("不支持非谷歌浏览器");
+	var bgObj=document.createElement("div");
+	bgObj.style.position="absolute";
+	bgObj.style.top="0";
+	bgObj.style.background="#E8E8E8";
+	bgObj.style.filter="progid:DXImageTransform.Microsoft.Alpha(style=3,opacity=25,finishOpacity=75";
+	bgObj.style.opacity="0.6";
+	bgObj.style.left="0";
+	bgObj.style.width = "100%";
+	bgObj.style.height = "100%";
+	bgObj.style.zIndex = "10000";
+	document.body.appendChild(bgObj);
+}
+
 Date.prototype.format = function(a) {
 	a || (a = "yyyy-MM-dd hh:mm:ss");
 	var c = {
