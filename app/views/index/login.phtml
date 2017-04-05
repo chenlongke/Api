@@ -1,5 +1,6 @@
 {% extends "templates/base2.phtml" %}
 {% block style %}
+<script src="/js/jsencrypt.min.js"></script>
     <style type="text/css">
         .main{
             position:absolute;
@@ -33,7 +34,7 @@
 {% block body %}
 <!-- <div class="pic"></div> -->
 <div class="main">
-    <form class="form-horizontal" method="post" action="/chat" autocomplete="off" style="margin-top: 54px;" role="form">
+    <form class="form-horizontal" method="post" action="/index" autocomplete="off" style="margin-top: 54px;" role="form">
         <div class="form-group">
             <label for="inputID" class="col-sm-3 control-label">帐号：</label>
             <div class="col-sm-8">
@@ -62,14 +63,11 @@
 {% endblock %}
 {% block script %}
 <script type="text/javascript" src="//cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
-<script type="text/javascript">
-    var src = ["/js/jsencrypt.min.js","/js/module/login.js?v={{date("YmdHis")}}"];
-    for (var i in src) {
-        var sc = document.createElement('script');
-        sc.src = src[i];
-        document.head.appendChild(sc);
-    }
+<script type="text/javascript">    
     window.onload=function(){
+        var sc = document.createElement('script');
+        sc.src = "/js/min-module/login.js?v={{date("YmdHis")}}";
+        document.head.appendChild(sc);
         $("#form").css("margin-top",function(){
             return $(this).height()/2;
         });

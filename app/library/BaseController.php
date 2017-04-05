@@ -11,7 +11,7 @@ class BaseController extends Controller{
 
 	public function initialize(){
 		if(!$this->session->get("userAuth")){			
-	        $this->response->redirect( '/' );
+	        $this->response->redirect( '/login' );
 		}
 		$this->log = $this->di->get('logger');
 	}

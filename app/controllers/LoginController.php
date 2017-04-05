@@ -1,15 +1,27 @@
 <?php
 /**
-* 
+* 登录，就只管登录
 */
 use Phalcon\Mvc\Model\Resultset;
-class LoginController extends BaseController
+class LoginController extends Phalcon\Mvc\Controller
 {
-	function indexAction(){
-		$this->view->render('login','index');
+	private $_isJsonpResponse = false;
+    private $_isJsonResponse = false;
+
+	public function initialize()
+	{
+		if($this->session->get("userAuth")){			
+	        $this->response->redirect( '/index' );
+		}
+		$this->log = $this->di->get('logger');
 	}
 
-
+	function indexAction(){
+		$this->view->region = json_decode($this->getLocationAction(),true);
+    	$this->view->title = "登录";
+    	$this->view->index = $this->getip();
+        $this->view->pick("index/login");
+	}
 	/**
 	* Check pass nick isexist
 	* Check the account password is correct
@@ -32,8 +44,6 @@ class LoginController extends BaseController
 		);
 
 		if($data){
-			//$this->log_info($data->id);
-			//$this->log_info($data->password);
 			$rsa = new RSA();
 			$password = $rsa->decryptRSA($password, $this->config->RSA_PRIVATE_KEY);
 			$DBpassword = $rsa->decryptRSA($data->password, $this->config->RSA_PRIVATE_KEY);
@@ -65,5 +75,48 @@ class LoginController extends BaseController
 				'data' => $data
 			];
 		}		
+	}
+
+
+    private function getip()
+    {
+        if (getenv("HTTP_CLIENT_IP")){
+            $ip = getenv("HTTP_CLIENT_IP");
+        }else if(getenv("HTTP_X_FORWARDED_FOR")){
+            $ip = getenv("HTTP_X_FORWARDED_FOR");
+        }else if(getenv("REMOTE_ADDR")){
+            $ip = getenv("REMOTE_ADDR");
+        }else {
+            $ip = "Unknow";
+        }
+        return $ip == "127.0.0.1" ? "27.115.94.242" : $ip;
+    }
+
+    private function getLocationAction()
+    {
+        $ip = $this->getip();
+        $ip == "127.0.0.1" ? $ip = "27.115.94.242" : '';        
+        return NetworkUtils::http("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip={$ip}",null);
+    }
+
+    //设置JSONP返回格式
+    private function setJsonpResponse() {
+        $this->view->disable();
+        isset($_REQUEST["callback"]) ? $this->_isJsonpResponse = true : $this->_isJsonResponse = true;
+    }
+
+    private function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher) {
+        $data = $dispatcher->getReturnedValue();
+        if ($this->_isJsonpResponse) {
+            $jsonp = $_REQUEST["callback"];
+            $this->response->setContent($jsonp . "(" . json_encode($data) . ")");
+            return $this->response->send();
+        }else if ($this->_isJsonResponse) {
+            $this->response->setJsonContent($data);
+            return $this->response->send();
+        }
+    }
+    private function log_info($param) {
+		$this->log->info($param);
 	}
 }
