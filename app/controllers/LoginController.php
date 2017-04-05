@@ -17,10 +17,11 @@ class LoginController extends Phalcon\Mvc\Controller
 	}
 
 	function indexAction(){
-		$this->view->region = json_decode($this->getLocationAction(),true);
-    	$this->view->title = "登录";
-    	$this->view->index = $this->getip();
-        $this->view->pick("index/login");
+		$this->view->setVars([
+			"region" => json_decode($this->getLocationAction(),true),
+			"title" => "登录",
+			"index" => $this->getip()
+		]);
 	}
 	/**
 	* Check pass nick isexist

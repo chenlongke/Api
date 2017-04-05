@@ -20,5 +20,6 @@
 			$data["p"] = json_encode($_POST);
 			$data['g'] = json_encode($_GET);
 			$this->log->info(json_encode($data));
+			echo  '{"result":"true","returnCode":"200","message":"成功"}';
 		}
 	}
