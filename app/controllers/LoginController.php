@@ -22,6 +22,7 @@ class LoginController extends Phalcon\Mvc\Controller
 			"title" => "登录",
 			"index" => $this->getip()
 		]);
+		$this->view->pick('Login/index');
 	}
 	/**
 	* Check pass nick isexist
