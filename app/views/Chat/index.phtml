@@ -34,8 +34,8 @@
 			#ems a:hover,#ems a:active,#ems a.ck{color:#FFF; background-color:#069;}
 			.tc{text-align:center; margin-top:5px;}
 		</style>
-		<script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.js"></script>
-		<script src="/js/module/a.js?v={{date("YmdHis")}}" type="text/javascript"></script>
+		<script type="text/javascript" src="//apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="/assets/js/module/chat.js?v=64654" type="text/javascript"></script>
 	</head>
 	<body>
 		<div id="ltian">
@@ -44,17 +44,14 @@
 		    <a href="javascript:void(0);" class="qp" onClick="this.parentNode.children[1].innerHTML=''">清屏</a>
 		</div>
 		<div class="rin">
-		    <button id="sd">发送</button>
+		    <button id="sendMessageButton">发送</button>
 		    <span>
-		    	<img src="/img/sk/t.png" title="表情" id="imgbq">
-		    	<img src="/img/sk/e.png" title="上传图片">
+		    	<img src="/assets/img/sk/t.png" title="表情" id="imgbq">
+		    	<img src="/assets/img/sk/e.png" title="上传图片">
 		    	<form><input type="file" title="上传图片" id="upimg"></form>
 		    </span>
 		    <p><input id="nrong"></p>
 		</div>
-		<div id="ems"><p></p><p class="tc"></p></div>	
-		<script>
-			
-		</script>
+		<div id="ems"><p></p><p class="tc"></p></div>
 	</body>
 </html>

@@ -121,4 +121,12 @@ class LoginController extends Phalcon\Mvc\Controller
     private function log_info($param) {
 		$this->log->info($param);
 	}
+
+	public function ajaxAction(){
+		$data = [
+			'name' => 'clk',
+			'age' => 24
+		];
+		exit(json_encode($data));
+	}
 }

@@ -150,11 +150,11 @@
 		return is_true;		
 	});
 	$.backstretch([
-	        "/img/bg/1.jpg",
-	        "/img/bg/2.jpg",
-	        "/img/bg/3.jpg",
-	        "/img/bg/4.jpg",
-	        "/img/bg/5.jpg",
+	        "/assets/img/bg/1.jpg",
+	        "/assets/img/bg/2.jpg",
+	        "/assets/img/bg/3.jpg",
+	        "/assets/img/bg/4.jpg",
+	        "/assets/img/bg/5.jpg",
         ], {
 			fade: 1000,
 			duration: 8000
