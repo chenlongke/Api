@@ -1,7 +1,9 @@
 <?php
+
 /**
 * 登录，就只管登录
 */
+
 use Phalcon\Mvc\Model\Resultset;
 class LoginController extends Phalcon\Mvc\Controller
 {
@@ -16,7 +18,8 @@ class LoginController extends Phalcon\Mvc\Controller
 		$this->log = $this->di->get('logger');
 	}
 
-	function indexAction(){
+	function indexAction()
+	{
 		$this->view->setVars([
 			"region" => json_decode($this->getLocationAction(),true),
 			
@@ -28,7 +31,8 @@ class LoginController extends Phalcon\Mvc\Controller
 	* Check pass nick isexist
 	* Check the account password is correct
 	*/
-	function checkAccountAction(){
+	function checkAccountAction()
+	{
 		$this->setJsonpResponse();//jsonp返回
 		$account = isset($_POST['account']) ? $_POST['account']  : '';
 		$password = isset($_POST['password']) ? $_POST['password']  : '';
@@ -107,7 +111,8 @@ class LoginController extends Phalcon\Mvc\Controller
         isset($_REQUEST["callback"]) ? $this->_isJsonpResponse = true : $this->_isJsonResponse = true;
     }
 
-    private function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher) {
+    private function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher) 
+    {
         $data = $dispatcher->getReturnedValue();
         if ($this->_isJsonpResponse) {
             $jsonp = $_REQUEST["callback"];
@@ -118,11 +123,14 @@ class LoginController extends Phalcon\Mvc\Controller
             return $this->response->send();
         }
     }
-    private function log_info($param) {
+
+    private function log_info($param) 
+    {
 		$this->log->info($param);
 	}
 
-	public function ajaxAction(){
+	public function ajaxAction()
+	{
 		$data = [
 			'name' => 'clk',
 			'age' => 24
