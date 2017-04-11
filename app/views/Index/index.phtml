@@ -1,0 +1,12 @@
+{% extends "templates/base2.phtml" %}
+{% block body %}
+	<img title="Adorable" class="lazy" alt="Adorable" data-original="http://odamiao.com/img/wanzi/la la la.gif" width="120" height="120">
+    <img title="Adorable" class="lazy" alt="Adorable" data-original="http://odamiao.com/img/wanzi/Strive.gif" width="120" height="120">
+    <img title="Adorable" class="lazy" alt="Adorable" data-original="http://odamiao.com/img/wanzi/Adorable.gif" width="120" height="120">
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
+<script type="text/javascript">
+	$("img.lazy").lazyload({effect: "fadeIn"});
+</script>
+{% endblock %}

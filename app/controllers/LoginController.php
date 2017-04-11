@@ -22,7 +22,7 @@ class LoginController extends Phalcon\Mvc\Controller
 	{
 		$this->view->setVars([
 			"region" => json_decode($this->getLocationAction(),true),
-			
+			"title" => "登录",
 			"index" => $this->getip()
 		]);
 		$this->view->pick('Login/index');
@@ -83,6 +83,10 @@ class LoginController extends Phalcon\Mvc\Controller
 		}		
 	}
 
+	public function logout()
+	{
+		$this->session->destroy();
+	}
 
     private function getip()
     {
