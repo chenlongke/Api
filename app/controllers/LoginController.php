@@ -141,4 +141,9 @@ class LoginController extends Phalcon\Mvc\Controller
 		];
 		exit(json_encode($data));
 	}
+
+	public function installAction()
+	{
+		
+	}
 }
