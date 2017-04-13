@@ -9,11 +9,22 @@ class BaseController extends Controller{
     protected $_isJsonResponse = false;
 
 
+    protected $_nick = null;
+    protected $_uid = null;
+    protected $_userdata = null;
+
 	public function initialize(){
-		if(!$this->session->get("userAuth")){			
+		if(!$this->session->has("userAuth")){			
 	        $this->response->redirect( '/login' );
 		}
+		
 		$this->log = $this->di->get('logger');
+
+		$userdata = json_decode($this->session->get("userAuth"),true);
+		$this->_userdata = $userdata;		
+		$this->_nick = $userdata['nick'];
+		$this->_uid = $userdata['id'];		
+		$this->view->setVar('_nick',$this->_nick);		
 	}
 
 	//设置JSONP返回格式

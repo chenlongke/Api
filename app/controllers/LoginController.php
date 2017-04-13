@@ -83,9 +83,10 @@ class LoginController extends Phalcon\Mvc\Controller
 		}		
 	}
 
-	public function logout()
+	public function logoutAction()
 	{
 		$this->session->destroy();
+		$this->response->redirect( '/login' );
 	}
 
     private function getip()
