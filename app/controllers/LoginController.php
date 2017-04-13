@@ -144,6 +144,13 @@ class LoginController extends Phalcon\Mvc\Controller
 
 	public function installAction()
 	{
-		
+		$this->view->pick('Login/install');
 	}
+
+	public function NotFoundAction()
+	{
+    	//echo '<img title="Adorable" src="/assets/img/wanzi/la la la.gif" alt="Adorable" width="120" height="120">';
+    	echo 404;
+    	die();
+    }
 }

@@ -142,7 +142,7 @@ $di->setShared("dispatcher",function () {
                 if ($exception instanceof DispatchException) {
                     $dispatcher->forward(
                         [
-                            "controller" => "Index",
+                            "controller" => "Login",
                             "action"     => "NotFound",
                         ]
                     );
