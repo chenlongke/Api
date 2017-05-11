@@ -32,132 +32,175 @@
 	</nav>
 
 	<div class="container">
-		<div class="row" style="text-align: center;">
+		<!-- <div class="row" style="text-align: center;">
 			<div class="col-md-4"><img title="Adorable" class="lazy" alt="Adorable" data-original="/assets/img/wanzi/la la la.gif" width="120" height="120"></div>
 			<div class="col-md-4"><img title="Adorable" class="lazy" alt="Adorable" data-original="/assets/img/wanzi/Strive.gif" width="120" height="120"></div>
 			<div class="col-md-4"><img title="Adorable" class="lazy" alt="Adorable" data-original="/assets/img/wanzi/Adorable.gif" width="120" height="120"></div>
-		</div>    	
+		</div> -->
     	<div style="border:1px solid pink;width: 60%;padding: 10px;">
+    		<h3 style="text-align: center;" class="currentMonth">2017年5月</h3>
     		<table class="table table-bordered" style="text-align: center;">
-    			<thead>
+    			<thead >
     				<tr class="success">
-    					<th>一</th>
-    					<th>二</th>
-    					<th>三</th>
-    					<th>四</th>
-    					<th>五</th>
-    					<th>六</th>
-    					<th>日</th>
+    					<th style="text-align: center;">一</th>
+    					<th style="text-align: center;">二</th>
+    					<th style="text-align: center;">三</th>
+    					<th style="text-align: center;">四</th>
+    					<th style="text-align: center;">五</th>
+    					<th style="text-align: center;">六</th>
+    					<th style="text-align: center;">日</th>
     				</tr>
     			</thead>
     			<tbody id="tbody"></tbody>
     		</table>
     		<div class="row" style="text-align: center;">
-    			<div class="col-md-4"><a href="javascript:void(0);">上一个月</a></div>
-    			<div class="col-md-4"><a href="javascript:void(0);">这个月</a></div>
-    			<div class="col-md-4"><a href="javascript:void(0);">下一个月</a></div>
+    			<div class="col-md-4"><a href="javascript:void(0);" data-action="previous">上一个月</a></div>
+    			<div class="col-md-4"><a href="javascript:void(0);" data-action="current">这个月</a></div>
+    			<div class="col-md-4"><a href="javascript:void(0);" data-action="next">下一个月</a></div>
     		</div>
     	</div>
 	</div>
 {% endblock %}
 {% block script %}
 <script type="text/javascript" src="//apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
-<script type="text/javascript">
-	$("img.lazy").lazyload({effect: "fadeIn"});
-
-	class calendar{
-		constructor(year, month,date) {
-			let dateObject = new Date();
-		    this.year = year || dateObject.getFullYear();
-		    this.month = month || dateObject.getMonth() + 1;
-		    this.date = date || dateObject.getDate();
-		    dateObject.setFullYear(this.year);
-		    dateObject.setMonth(this.month-1);
-		    dateObject.setDate(this.date);
-		    this.weekDay = dateObject.getDay();
-		}
-		getMonthAllDay(year,month){
-			let monthCount = 31;
-			switch(parseInt(month)){
-				case 2 :
-					if (year % 4 == 0) {
-	                    monthCount =  year % 100 == 0 ? ( monthCount = year % 400 == 0 ? 29 : 28 ) : 29;
-	                } else {
-	                    monthCount = 28;
-	                }
-					break;
-				case 4 :
-	            case 6 :
-	            case 9 :
-	            case 11 :
-                	monthCount = 30;
-                	break;
-                default:
-                	monthCount=31;
-                	break;
+<script type="text/javascript">	
+	;(($)=> {
+		$("img.lazy").lazyload({effect: "fadeIn"});
+		console.info(666);
+	
+		class calendar{
+			constructor(year, month,date) {
+				let dateObject = new Date();
+			    this.year = year || dateObject.getFullYear();
+			    this.month = month || dateObject.getMonth() + 1;
+			    this.date = date || dateObject.getDate();
+			    dateObject.setFullYear(this.year);
+			    dateObject.setMonth(this.month-1);
+			    dateObject.setDate(this.date);
+			    this.weekDay = dateObject.getDay();
 			}
-			return monthCount;
-		}
-		getWeekDay(year, month,date){//获取是周几
-			month = month <=9 ? ("0"+month) : month;
-			date = date <=9 ? ("0"+date) : date;
-			let day = (new Date(year + "-" + month + "-" + date +" 00:00:00")).getDay();
-			return day == 0 ? 7 : day;
-		}
-		/**
-		* 急需优化的代码段。后面在优化 2017年5月9日 18:10:29
-		*/
-		init(){
-			/*let previousMonthCount = this.getMonthAllDay(this.year,this.month -1,1 );//上月有多少天*/
-			let currentMonthCount = this.getMonthAllDay(this.year,this.month,1 );//这个月有多少天
-			let weekDay = this.getWeekDay(this.year,this.month,1);
-			let lastWeekDay = this.getWeekDay(this.year,this.month,currentMonthCount);
-			var html = '<tr>';
-			let j = 1;
+			getMonthAllDay(year,month){
+				let monthCount = 31;
+				switch(parseInt(month)){
+					case 2 :
+						if (year % 4 == 0) {
+		                    monthCount =  year % 100 == 0 ? ( monthCount = year % 400 == 0 ? 29 : 28 ) : 29;
+		                } else {
+		                    monthCount = 28;
+		                }
+						break;
+					case 4 :
+		            case 6 :
+		            case 9 :
+		            case 11 :
+	                	monthCount = 30;
+	                	break;
+	                default:
+	                	monthCount=31;
+	                	break;
+				}
+				return monthCount;
+			}
+			getWeekDay(year, month,date){//获取是周几
+				month = month <=9 ? ("0"+month) : month;
+				date = date <=9 ? ("0"+date) : date;
+				let day = (new Date(year + "-" + month + "-" + date +" 00:00:00")).getDay();
+				return day == 0 ? 7 : day;
+			}
+			/**
+			* 1、急需优化的代码段。后面在优化 2017年5月9日 18:10:29
+			* 2、补上上个与结束的几天 2017年5月10日 15:10:53
+			* 3、增加时间展示，可以上个月和下个月切换。2017年5月11日 10:31:42
+			*/
+			init(){
+				$("#tbody").empty();
+				let previousMonthCount = this.getMonthAllDay(this.year,this.month -1,1 );//上月有多少天
+				let currentMonthCount = this.getMonthAllDay(this.year,this.month,1 );//这个月有多少天			
+				let weekDay = this.getWeekDay(this.year,this.month,1);//周几
+				let lastWeekDay = this.getWeekDay(this.year,this.month,currentMonthCount);
+				let html = '<tr>';
+				let j = 1;
+				let offset = weekDay-2;
+				for(let i = 1;i<=7;i++){
+					if(i<=(weekDay - 1)){
+						html += "<td class=\"danger\">"+(previousMonthCount - offset)+"</td>";
+						offset--;
+					} else {
+						if(j==this.date){
+							html += "<td class=\"info\">"+j+"</td>";
+						} else{
+							html += "<td>"+j+"</td>";
+						}
+						
+						j++;
+					}
+				}
 
-			for(let i = 1;i<=7;i++){
-				if(i<=(weekDay - 1)){
-					html += "<td></td>";
-				} else {
-					if(j==this.weekDay){
+				let s = 0;
+				for(j;j<=currentMonthCount;j++){
+					if(s==0){
+						html+="<tr>";
+					}
+					if(j==this.date){
 						html += "<td class=\"info\">"+j+"</td>";
 					} else{
 						html += "<td>"+j+"</td>";	
 					}
-					
-					j++;
-				}
-			}
 
-			let s = 0;
-			for(j;j<=currentMonthCount;j++){
-				if(s==0){
-					html+="<tr>";
-				}
-				if(j==this.weekDay){
-					html += "<td class=\"info\">"+j+"</td>";
-				} else{
-					html += "<td>"+j+"</td>";	
-				}				
-
-				if(currentMonthCount==j){
-					for(let k=1;k<=(7-lastWeekDay);k++){
-						html += "<td></td>";
+					if(currentMonthCount==j){
+						for(let k=1;k<=(7-lastWeekDay);k++){
+							html += "<td class=\"active\">"+k+"</td>";
+						}
+					}
+					s+=1;
+					if(s==7){
+						html+="</tr>";
+						s=0;
 					}
 				}
-				s+=1;
-				if(s==7){
-					html+="</tr>";
-					s=0;
-				}				
+				html += '</tr>';
+				$(".currentMonth").html(this.year + "年" + (this.month <=9 ? "0" + this.month : this.month) + "月");
+				$("#tbody").append(html);
 			}
-
-			html += '</tr>';
-			$("#tbody").append(html);
+			action(t){
+				let dateObject = new Date();
+				if(t=='next'){					
+					if(this.month==12){
+						this.month = 1;
+						this.year=this.year+1;
+					}else{
+						this.month = this.month+1;	
+					}				    
+				    this.date = 1;				    
+				} else if(t == 'current') {
+					this.year = dateObject.getFullYear();
+			    	this.month = dateObject.getMonth() + 1;
+			    	this.date = dateObject.getDate();
+				} else if(t == 'previous') {
+					if(this.month==1){
+						this.month = 12;
+						this.year=this.year-1;
+					}else{
+						this.month = this.month-1;	
+					}				    
+				    this.date = 1;
+				}
+				dateObject.setDate(this.date);
+				dateObject.setFullYear(this.year);
+				dateObject.setMonth(this.month-1);
+				this.weekDay = dateObject.getDay();
+				console.log(dateObject.format());
+				this.init();
+			}
 		}
-	}
-	//let picker = new calendar(2002,08,01);
-	let picker = new calendar();
-	picker.init();
+		
+		//let picker = new calendar(2017,07,23);
+		let picker = new calendar();
+		picker.init();
+		$("a[data-action]").on('click',(dom)=>{
+			picker.action($(dom.currentTarget).data('action'));
+		})
+	})(jQuery);
+
 </script>
 {% endblock %}
