@@ -7,8 +7,13 @@ class ChatController  extends BaseController
 	}
 	
 	function bindRequestAction(){
-		$this->log_info("我是绑卡通知回调||".json_encode($_REQUEST));
-		
+		$this->log_info("我是绑卡通知回调||".json_encode($_REQUEST));		
 		die('SUCCESS');
 	}
+	
+	function zhimaAction()
+	{
+		$thi->log_info("我是芝麻回调||".json_encode($_REQUEST));
+		die('SUCCESS');
+	}	
 }
