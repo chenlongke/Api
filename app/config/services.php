@@ -111,7 +111,6 @@ $di->set('flash', function () {
 $di->setShared('session', function () {
     $session = new SessionAdapter();
     $session->start();
-
     return $session;
 });
 
@@ -125,7 +124,7 @@ $di->set('logger', function() use ($config)  {
 });
 
 /*设置路由*/
-$di->set('router',function() use($config){
+/*$di->set('router',function() use($config){
     require APP_PATH.'/config/routers.php';
     return $router;
 });
@@ -172,7 +171,7 @@ $di->setShared("dispatcher",function () {
 
         return $dispatcher;
     }
-);
+);*/
 
 $di->set('redis' , function() use($config){
     $redis = new Redis();

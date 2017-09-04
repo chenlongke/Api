@@ -3,7 +3,6 @@
 /**
 * 登录，就只管登录
 */
-
 use Phalcon\Mvc\Model\Resultset;
 class LoginController extends Phalcon\Mvc\Controller
 {
@@ -116,7 +115,7 @@ class LoginController extends Phalcon\Mvc\Controller
         isset($_REQUEST["callback"]) ? $this->_isJsonpResponse = true : $this->_isJsonResponse = true;
     }
 
-    private function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher) 
+    public function afterExecuteRoute(\Phalcon\Mvc\Dispatcher $dispatcher) 
     {
         $data = $dispatcher->getReturnedValue();
         if ($this->_isJsonpResponse) {
